@@ -24,9 +24,8 @@ def handle_events():
             running = False
         elif event.type == SDL_MOUSEMOTION:
             mx, my = event.x, TUK_HEIGHT - 1 - event.y
-        elif event.type == SDL_MouseButtonEvent and event.button == SDL_BUTTON_LEFT:
+        elif event.type == SDL_MOUSEBUTTONDOWN:
             points.append((event.x,  TUK_HEIGHT - 1 - event.y))
-
     pass
 
 
