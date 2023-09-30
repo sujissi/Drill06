@@ -31,11 +31,11 @@ def handle_events():
     pass
 
 
-def follow_arrow(dest_x, dest_y):
-    global x, y
-    t = 0.1
-    x = (1 - t) * x + t * dest_x
-    y = (1 - t) * y + t * dest_y
+def follow_arrow():
+    get_follow_point()
+    if is_collision(x, y, px[0], py[0]):
+        arrows.pop(0)
+        px.pop(0), py.pop(0)
     pass
 
 
@@ -46,6 +46,12 @@ def is_collision(x1, y1, x2, y2):
         return False
     pass
 
+def get_follow_point():
+    global x, y
+    t = 0.1
+    x = (1 - t) * x + t * px[0]
+    y = (1 - t) * y + t * py[0]
+    pass
 
 def set_img_dir():
     # global x, rx, direction
@@ -76,7 +82,7 @@ while running:
     if not len(arrows) == 0:
         for i in range(0, len(arrows)):
             arrows[i].draw(px[i], py[i])
-
+        follow_arrow()
     update_canvas()
     frame = (frame + 1) % 8
     delay(0.05)
