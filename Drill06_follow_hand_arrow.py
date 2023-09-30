@@ -8,6 +8,7 @@ TUK_ground = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
 arrow = load_image('hand_arrow.png')
 
+
 # 클릭한 위치에 화살표 만들어지고 소년 도착시 사라짐
 # 마우스 클릭 이벤트 추가
 # 클릭 좌표 저장 리스트 추가해서 for문으로 그려야겠다
@@ -22,21 +23,9 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
         elif event.type == SDL_MouseButtonEvent and event.button == SDL_BUTTON_LEFT:
-            #points.append(())
+    # points.append(())
 
     pass
-
-
-def set_arrow_point():
-    global rx, ry, is_collision
-    margin = 100
-    check_collision()
-    if is_collision:
-        rx = random.randint(0 + margin, TUK_WIDTH - margin)
-        ry = random.randint(0 + margin, TUK_HEIGHT - margin)
-        is_collision = False
-    pass
-
 
 def follow_arrow():
     global x, y, rx, ry
@@ -46,10 +35,11 @@ def follow_arrow():
     pass
 
 
-def check_collision():
-    global x, y, rx, ry, is_collision
-    if -20 < x - rx < 20 and -20 < y - ry < 20:
-        is_collision = True
+def is_collision(x1, y1, x2, y2):
+    if -20 < x2 - x1 < 20 and -20 < y2 - y1 < 20:
+        return True
+    else:
+        return False
     pass
 
 
@@ -63,9 +53,7 @@ def set_img_dir():
 
 
 running = True
-is_collision = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
-rx, ry = x, y
 points = []
 frame = 0
 direction = 1
@@ -73,13 +61,11 @@ hide_cursor()
 
 while running:
     clear_canvas()
-    set_arrow_point()
     set_img_dir()
     follow_arrow()
 
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     character.clip_draw(frame * 100, 100 * direction, 100, 100, x, y)
-    arrow.draw(rx, ry)
 
     update_canvas()
     frame = (frame + 1) % 8
