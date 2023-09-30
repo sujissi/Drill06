@@ -81,8 +81,8 @@ while running:
     if not len(arrows) == 0:
         for i in range(0, len(arrows)):
             arrows[i].draw(px[i], py[i])
-        follow_arrow()
         set_img_dir()
+        follow_arrow()
 
     update_canvas()
     frame = (frame + 1) % 8
