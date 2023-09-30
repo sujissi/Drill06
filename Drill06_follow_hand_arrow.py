@@ -54,11 +54,11 @@ def get_follow_point():
     pass
 
 def set_img_dir():
-    # global x, rx, direction
-    # if x < rx:
-    #     direction = 1
-    # else:
-    #     direction = 0
+    global direction
+    if x < px[0]:
+        direction = 1
+    else:
+        direction = 0
     pass
 
 
@@ -74,7 +74,6 @@ hide_cursor()
 
 while running:
     clear_canvas()
-    set_img_dir()
 
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     character.clip_draw(frame * 100, 100 * direction, 100, 100, x, y)
@@ -83,6 +82,8 @@ while running:
         for i in range(0, len(arrows)):
             arrows[i].draw(px[i], py[i])
         follow_arrow()
+        set_img_dir()
+
     update_canvas()
     frame = (frame + 1) % 8
     delay(0.05)
