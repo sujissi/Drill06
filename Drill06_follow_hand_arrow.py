@@ -73,7 +73,10 @@ while running:
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     character.clip_draw(frame * 100, 100 * direction, 100, 100, x, y)
     arrow.draw(mx, my)
-    
+    if not len(arrows) == 0:
+        for i in range(0, len(arrows)):
+            arrows[i].draw(px[i], py[i])
+
     update_canvas()
     frame = (frame + 1) % 8
     delay(0.05)
