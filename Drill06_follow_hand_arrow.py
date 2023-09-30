@@ -15,7 +15,7 @@ arrow = load_image('hand_arrow.png')
 
 def handle_events():
     global running
-    global x, y, mx, my, points
+    global x, y, mx, my
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -25,7 +25,9 @@ def handle_events():
         elif event.type == SDL_MOUSEMOTION:
             mx, my = event.x, TUK_HEIGHT - 1 - event.y
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            points.append((event.x,  TUK_HEIGHT - 1 - event.y))
+            arrows.append(arrow)
+            px.append(event.x)
+            py.append(TUK_HEIGHT - 1 - event.y)
     pass
 
 
@@ -57,19 +59,21 @@ def set_img_dir():
 running = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 mx, my = x, y
-points = [(x,y)]  # 화살표 좌표 저장
+px, py = [], []
 frame = 0
 direction = 1
+arrows = []
+
 hide_cursor()
 
 while running:
     clear_canvas()
     set_img_dir()
-    follow_arrow(points[0][0], points[0][1])
 
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     character.clip_draw(frame * 100, 100 * direction, 100, 100, x, y)
     arrow.draw(mx, my)
+    
     update_canvas()
     frame = (frame + 1) % 8
     delay(0.05)
